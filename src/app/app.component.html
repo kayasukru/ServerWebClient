@@ -1,0 +1,113 @@
+<div class="container">
+  <h1>Flexi Grid</h1>
+
+  <hr>
+  
+  <flexi-grid 
+    [commandColumnTemplate]="islemlerSutunSablonu"
+    [commandColumnTextAlign]="'center'"
+    [commandColumnTitle]="'İşlemler'"
+    [stickyCommandColumn]="true"
+    [showCommandColumn]="true"
+    [commandColumnWidth]="'10%'"
+
+    [pageable]="pageable()"
+    [pageSize]="pageSize()"
+    [pageSizeList]="pageSizeList()"
+
+    [data]="users()"
+    [total]="total()"
+    [dataBinding]="dataBinding()"
+    (dataStateChange)="onDataStageChange($event)"
+    [loading]="loading()"
+
+    [themeClass]="themeClass()"
+
+    [pageable]="true"
+    [filterable]="true"
+    [sortable]="true"
+    [draggable]="true"
+    [showCaption]="true"
+    captionTitle="Kullanıcı Listesi"
+    [resizable]="true"
+    
+    [showIndex]="true"
+    indexTextAlign="center"
+    indexWidth="5%"
+
+    [showExportExcelBtn]="true"
+    exportExcelFileName="Kullanıcı-Listesi"
+
+    [captionTemplate]="captionTemplate"
+    [footerTemplate]="footerTemplate"
+  >
+
+    <ng-template #captionTemplate>
+      <button (click)="changeThemeClass()">Tema Değiştir</button>
+      <button>Ekle</button>
+    </ng-template>
+
+    
+    <ng-template #footerTemplate let-item>
+      <tr class="" style="height: 35px;">
+        <th class="text-end fw-bold" colspan="6">Toplam Kayıt</th>
+        <th class="text-start fw-bold">{{total()}}</th>
+      </tr>
+    </ng-template>
+
+
+    <flexi-grid-column 
+      field="id" 
+      title="Id"
+      width="20%"
+    >
+    </flexi-grid-column>
+    <flexi-grid-column 
+      field="firstName" 
+      title="Adı"
+      width="10%"
+    >
+    </flexi-grid-column>
+    <flexi-grid-column 
+      field="lastName" 
+      title="Soyadı"
+      width="10%"
+    >
+    </flexi-grid-column>
+    <flexi-grid-column
+       field="dateOfBirth" 
+       title="Doğum Tarihi" 
+       filterType="date" 
+       format="dd.MM.yyyy"
+       width="11%"
+    >
+    </flexi-grid-column>
+    <flexi-grid-column 
+      field="salary"  
+      title="Maaşı"
+      filterType="number"
+      format="c"
+      [fraction]="3"
+      symbol="₺ "
+      width="10%"
+    >
+    </flexi-grid-column>
+  
+    <flexi-grid-column field="salary" title="Maaş" width="15%" [sortable]="false">
+        <ng-template flexiGridHeaderTemplate let-item="item">
+          <input type="search" class="flexi-grid-filter-input" (keyup)="onKeyUp($event)" placeholder="Özel filtre ..." />
+        </ng-template>
+
+        <ng-template flexiGridCellTemplate let-item let-rowIndex="rowIndex">
+          Değer: {{item.salary | trCurrency: '₺': false: 2}} || index: {{rowIndex}}
+        </ng-template>
+    </flexi-grid-column>
+
+    <ng-template #islemlerSutunSablonu let-item let-index="index">
+      <flexi-button (click)="edit(item.id)" btnColor="primary" >Güncelle</flexi-button>
+      <flexi-button (click)="remove(item.id)" btnColor="danger" class="ms-1" >Sil</flexi-button>
+    </ng-template>
+
+  </flexi-grid>
+  
+</div>

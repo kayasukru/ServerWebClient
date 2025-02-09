@@ -1,0 +1,23 @@
+zoneless yapı kullanılıyor. 
+Aşağıdaki işlemleri yapınca zone.js yerine 
+kendi kurduğumuz SignalR yapılarına göre güncellemeler yapılıyor.
+
+-angular.json dosyasından zone.js dosya adı siliniyor
+
+    "polyfills": [
+        "zone.js"
+    ], 
+    
+-app.confis.ts dosyasından "provideZoneChangeDetection({ eventCoalescing: true })" siliniyor. 
+    Onun yerine "provideExperimentalZonelessChangeDetection()" ekleniyor.
+
+----------------------------------------------------------------
+flexi grid kurulumu
+
+npm i flexi-grid
+
+
+
+----------------------------------------------------------------
+----------------------------------------------------------------
+----------------------------------------------------------------
